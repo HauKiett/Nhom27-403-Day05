@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-headline: "Space Grotesk", sans-serif;
+  --font-body: "Manrope", sans-serif;
+  --font-label: "Inter", sans-serif;
+
+  --color-surface: #131313;
+  --color-surface-container-lowest: #0E0E0E;
+  --color-surface-container-low: #1C1B1B;
+  --color-surface-container-high: #2A2A2A;
+  --color-surface-container-highest: #353534;
+  --color-primary: #C6C6C7;
+  --color-on-primary: #2F3131;
+  --color-on-surface: #E5E2E1;
+  --color-on-surface-variant: #C4C7C7;
+  --color-outline-variant: #444748;
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-on-surface font-body antialiased;
+  }
+}
+
+@layer components {
+  .premium-gradient {
+    background: linear-gradient(135deg, #C6C6C7 0%, #101213 100%);
+  }
+
+  .glass-header {
+    @apply bg-surface/80 backdrop-blur-2xl border-b border-white/5;
+  }
+
+  .kinetic-button {
+    @apply px-10 py-4 font-bold tracking-widest uppercase transition-all duration-300;
+  }
+
+  .kinetic-button-primary {
+    @apply bg-primary text-on-primary hover:bg-white active:scale-95;
+  }
+
+  .kinetic-button-ghost {
+    @apply border border-outline-variant/20 text-on-surface hover:bg-white/5 active:scale-95;
+  }
+}
+
+/* Hide scrollbar for horizontal scrollers */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
