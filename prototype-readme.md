@@ -17,11 +17,35 @@ Hệ thống được cấu trúc dựa trên **Multi-step Tool Pipeline (ReAct/
 
 ---
 
-## 2. Link Demo
-- **Live Prototype URL:** `[Cập nhật link web Chatbot Chainlit/Streamlit chạy thật tại đây]`
-- **Tài liệu SPEC chi tiết:** Tham khảo file `SPEC-Nhom27-VinFast-Vivi.md` của nhóm.
+## 2. Hướng dẫn Setup & Chạy Local
 
-*(Nếu bạn chạy Local, hướng dẫn chạy code: `chainlit run app.py` / `python main.py`)*
+Để chạy dự án ở chế độ phát triển (local), bạn vui lòng thực hiện theo các bước sau:
+
+**Bước 1: Cài đặt thư viện**
+Bạn cần cài đặt các thư viện yêu cầu nằm trong `requirements.txt`:
+```bash
+pip install -r requirements.txt
+```
+
+**Bước 2: Cấu hình biến môi trường**
+Tạo một file có tên `.env` ở thư mục gốc của project (cùng cấp với file backend) và bổ sung cấu hình cần thiết để Agent hoạt động:
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+**Bước 3: Khởi chạy Server Backend**
+Dự án sử dụng FastAPI để viết endpoint. Bạn có thể khởi động server bằng 1 trong 2 lệnh sau ở Terminal:
+```bash
+uvicorn vinfast_backend:app --reload
+```
+Hoặc:
+```bash
+python vinfast_backend.py
+```
+
+Sau khi chạy xong, Server sẽ mở tại địa chỉ `http://localhost:3000`.
+
+- **Tài liệu SPEC chi tiết:** Tham khảo thêm file `SPEC-Nhom27-VinFast-Vivi.md` của nhóm để hiểu rõ thiết kế luồng hệ thống.
 
 ---
 
