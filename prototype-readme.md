@@ -5,36 +5,28 @@
 
 ---
 
-## 1. Giới thiệu Prototype
-Vivi là hệ thống Chatbot AI tư vấn xe VinFast được xây dựng theo mô hình **Augmentation đa phương thức (Multimodal)**. Thay vì để người dùng tra cứu thủ công qua nhiều trang web, Vivi đóng vai trò như một trợ lý tư vấn tổng hợp trọn gói, bao gồm:
+**Mô tả prototype:**
+Vivi là hệ thống Chatbot AI tư vấn xe VinFast được xây dựng theo mô hình Augmentation đa phương thức (Multimodal), cho phép nhận diện xe qua ảnh và chat tương tác trực tiếp. Hệ thống tự động phân tích nhu cầu và sử dụng Multi-step Tool Pipeline để tư vấn trọn gói từ phiên bản, giá cả, chi phí lăn bánh đến phụ kiện và đối thủ, với dữ liệu được trích xuất từ database nội bộ nhằm đảm bảo tính chính xác tuyệt đối.
 
-1. **Nhận diện bằng ảnh:** Gửi ảnh xe trên phố để AI phân tích và gọi tên mẫu xe.
-2. **Tìm kiếm & Liệt kê:** Cung cấp các phiên bản và giá niêm yết chính xác.
-3. **Tính chi phí lăn bánh:** Úp lệ phí / VAT / Bảo hiểm / Phụ kiện một cách trực quan.
-4. **Phân tích đối thủ & Chính sách:** So sánh xe cùng phân khúc, tư vấn thuê pin và bảo hành.
+**Level:** ~~Sketch~~ / ~~Mock~~ / **Working** ✅
 
-Hệ thống được cấu trúc dựa trên **Multi-step Tool Pipeline (ReAct/LangGraph)**, đảm bảo AI chỉ trích xuất dữ liệu từ Database nội bộ, triệt tiêu tối đa rủi ro "ảo giác" (hallucination) về giá cả và thông số dẫn đến thiệt hại tài chính cho khách hàng.
+**Link prototype:** *(chạy local — xem hướng dẫn bên dưới)*
 
----
+**Hướng dẫn chạy local:**
 
-## 2. Hướng dẫn Setup & Chạy Local
-
-Để chạy dự án ở chế độ phát triển (local), bạn vui lòng thực hiện theo các bước sau:
-
-**Bước 1: Cài đặt thư viện**
-Bạn cần cài đặt các thư viện yêu cầu nằm trong `requirements.txt`:
+**Bước 1 — Cài đặt thư viện**
 ```bash
 pip install -r requirements.txt
 ```
 
-**Bước 2: Cấu hình biến môi trường**
-Tạo một file có tên `.env` ở thư mục gốc của project (cùng cấp với file backend) và bổ sung cấu hình cần thiết để Agent hoạt động:
+**Bước 2 — Cấu hình API Key**
+
+Tạo file `.env` ở thư mục gốc của project:
 ```env
 OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-**Bước 3: Khởi chạy Server Backend**
-Dự án sử dụng FastAPI để viết endpoint. Bạn có thể khởi động server bằng 1 trong 2 lệnh sau ở Terminal:
+**Bước 3 — Khởi chạy server backend**
 ```bash
 uvicorn vinfast_backend:app --reload
 ```
@@ -43,21 +35,19 @@ Hoặc:
 python vinfast_backend.py
 ```
 
-Sau khi chạy xong, Server sẽ mở tại địa chỉ `http://localhost:3000`.
+Sau khi khởi chạy, truy cập giao diện tại: **http://localhost:3000**
 
-- **Tài liệu SPEC chi tiết:** Tham khảo thêm file `SPEC-Nhom27-VinFast-Vivi.md` của nhóm để hiểu rõ thiết kế luồng hệ thống.
+**Tools và API đã dùng:**
+* **LLM & API:** OpenAI API (Text model GPT-4o-mini & Vision model để phân tích ảnh).
+* **AI Framework:** LangGraph / ReAct (sử dụng Multi-step Tool Pipeline).
+* **Backend:** FastAPI, Uvicorn, Python.
+* **Frontend:** Web UI tích hợp tính năng tải ảnh lên và chat.
+* **Database:** Hardcoded Database tĩnh chứa thông tin xe VinFast, đối thủ, phụ kiện, và chính sách.
 
----
-
-## 3. Phân công nhiệm vụ
-
-Nhóm 27 đã phân chia công việc thực tế dựa trên thế mạnh từng người như sau:
+**Phân công:**
 
 | Thành viên | Phụ trách chính | Chi tiết công việc |
 |:---|:---|:---|
 | **Danh** | SPEC, Data & Canvas | Lập nội dung AI Product Canvas, khai thác Failure modes. Chuẩn bị toàn bộ dữ liệu hardcode (data giá, xe, phụ kiện). Thiết kế workflows tổng thể. |
 | **Kiệt** | Agent Flow & Prompt | Thiết kế luồng gọi đa công cụ (multi-tool flow) để điều phối LLM và trực tiếp quản lý, kiểm thử prompt (prompt test). |
 | **Nhị** | Prototype Code & UI | Trực tiếp code Prototype, tập trung hoàn thiện giao diện (UI) để người dùng có thể tải ảnh lên và chat tương tác trên frontend. |
-
----
-*Từng phần công việc liên kết liền mạch: Bộ Data và SPEC của Danh định hướng tạo đầu vào cho Prompt của Kiệt, và kết quả AI được hiển thị lên qua giao diện do Nhị code.*
